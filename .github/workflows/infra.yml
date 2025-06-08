@@ -3,26 +3,23 @@ name: 'Deploy App'
 on:
   push:
     branches:
-      - main
+      - infra
 
 env:
-  DESTROY: false
   TF_VERSION: 1.10.5
-  IMAGE_NAME: ci-cd-app
-  TAG_APP: v1.0.0
-  ECS_SERVICE: app-service
-  ECS_CLUSTER: app-prod-cluster
+  TF_LINT_VERSION: v0.52.0
+  DESTROY: false
   ENVIRONMENT: prod
 
 jobs:
-  Build:
-    name: 'Building app'
+  terraform:
+    name: 'Deploy Infra'
     runs-on: ubuntu-latest
 
     defaults:
       run:
         shell: bash
-        working-directory: app
+        working-directory: infra
 
     steps:
       - name: Download do Repositório
